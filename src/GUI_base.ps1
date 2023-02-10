@@ -29,7 +29,6 @@ function WUMG_Warn([string]$WUMG_LogMessage) {
 }
 
 function WUMG_FEL_Function {
-  WUMG_Log("Pressed Enable Feature button")
   If ($WUMG_FEL_Dropdown.SelectedIndex -eq 0) {
     WUMG_Log("Enabling Group Policy Editor...")
     Set-Location ./function
