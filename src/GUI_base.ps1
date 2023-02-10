@@ -1,11 +1,17 @@
+# Get CWD
+Param(
+  [Parameter(Mandatory)][String]$WorkingDirectory
+)
+
 # Force elevated instance
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
- if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-  $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
-  Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
-  Exit
- }
+  if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+    $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+    Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+    Exit
+  }
 }
+Set-Location $WorkingDirectory
 
 # Import dependencies for GUI-based application
 Add-Type -AssemblyName System.Windows.Forms
@@ -31,9 +37,9 @@ function WUMG_Warn([string]$WUMG_LogMessage) {
 function WUMG_FEL_Function {
   If ($WUMG_FEL_Dropdown.SelectedIndex -eq 0) {
     WUMG_Log("Enabling Group Policy Editor...")
-    Set-Location ./function
+    Set-Location $WorkingDirectory/function
     cmd.exe /c enable_gpedit.bat
-    Set-Location ../
+    Set-Location $WorkingDirectory
     WUMG_Log("Enabled Group Policy Editor.")
   }
   If ($WUMG_FEL_Dropdown.SelectedIndex -eq 1) {
@@ -47,10 +53,10 @@ $WinUtilitiesMainGUI = New-Object system.Windows.Forms.Form
 $WinUtilitiesMainGUI.ClientSize = '500,300'
 $WinUtilitiesMainGUI.text = "WinUtilities"
 $WinUtilitiesMainGUI.BackColor = $WUMG_BackColor
-$WinUtilitiesMainGUI.Icon = New-Object system.drawing.icon ("./GUI_icon.ico")
+$WinUtilitiesMainGUI.Icon = New-Object system.drawing.icon ("$WorkingDirectory/GUI_icon.ico")
 
 # Create feature enable list
-$WUMG_FEL_Features = @("Group Policy Editor",'Hp')
+$WUMG_FEL_Features = @("Group Policy Editor")
 $WUMG_FEL_Label = New-Object system.Windows.Forms.Label
 $WUMG_FEL_Label.text = "Feature Enabling"
 $WUMG_FEL_Label.AutoSize = $true
