@@ -2,7 +2,14 @@
 WinUtilities is a PowerShell-based GUI with features such as deleting most bloatware and feature enabling.
 
 ## Usages
-To use WinUtilities, clone the repository to where you would like WinUtilities to be installed if you haven't already. Once that is done, double-click on `launch.bat` and when you get a User Account Control (UAC) prompt press Confirm. After pressing confirm, an Administrator PowerShell will pop up where you must enter the directory where WinUtilities is installed including the `src` folder, for example `C:/Development/WinUtilities/src` if `WinUtilities` is found in the `Development` folder under the `C` drive. If it's in your `Downloads`, it'd be something such as `C:/Users/[user]/Downloads/WinUtilities/src` and so on.
+To use WinUtilities, you can refer to this step-by-step tutorial below.
+  - [1] Clone WinUtilities to any directory if you haven't already
+  - [2] Go to the WinUtilities directory
+  - [3] Inside of WinUtilities, double-click on `launch.bat`
+  - [4] Accept the UAC prompt to proceed with administrator permissions
+  - [5] In the new Windows PowerShell prompt, input the directory where WinUtilities is located with "/src" on the end for WorkingDirectory
+  - [6] The WorkingDirectory should look something like this: `[drive]:/Users/[user]/.../WinUtilities/src`
+  - [7] Press enter, and if all steps are correctly entered a GUI should appear
 <br>Please note that your directory for `WinUtilities` may not always be `WinUtilities` and something such as `WinUtilities-master`. This doesn't affect anything other than you have to replace `WinUtilities` with the name you have for it when PowerShell appears.
 
 ## Features
